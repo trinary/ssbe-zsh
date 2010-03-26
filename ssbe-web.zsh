@@ -78,7 +78,7 @@ function getxml {
   curl $STD_ARG -H $ACCEPT_XML $@
 }
 function postform {
-  dcurl -d $@
+  curl -d $@
 }
 function getssj {
   curl $STD_ARG -H $ACCEPT_SSJ $@
