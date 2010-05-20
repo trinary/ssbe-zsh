@@ -20,8 +20,8 @@ CONTENT_SSJ='Content-Type: application/vnd.absperf.ssj+json'
 CONTENT_SSKJ='Content-Type: application/vnd.absperf.sskj1+json'
 CONTENT_SSMJ='Content-Type: application/vnd.absperf.ssmj1+json'
 
-STD_ARG=(-v --anyauth -u dev:dev)
-NONVERBOSE_ARG=(--anyauth -u dev:dev)
+STD_ARG=(-v --anyauth -u $SSBE_USER:$SSBE_PASS)
+NONVERBOSE_ARG=(--anyauth -u $SSBE_USER:$SSBE_PASS)
 
 TIDYJSON=(ruby -rubygems -e "require 'json';puts JSON.pretty_generate(JSON.parse(STDIN.read),{:space_before => '$fg[magenta] ',:space => '$fg[cyan] ',:indent => '$fg[pr_green]  '}).gsub('\/','/')")
 
