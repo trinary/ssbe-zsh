@@ -9,9 +9,9 @@ function colindex {
   echo -e "\$fg[$COLOR]]"
 }
 
-ACCEPT_HEADER="Accept: application/vnd.absperf.sskj1+json, application/vnd.absperf.ssaj1+json, application/vnd.absperf.sscj1+json, application/vnd.absperf.ssmj1+json, application/vnd.absolute-performance.syshep+json, application/x-sysshep+json, text/plain"
-ACCEPT_XML='Accept: application/vnd.absperf.ssac1+xml'
-ACCEPT_SSJ="Accept: application/x-sysshep+json"
+export ACCEPT_HEADER="Accept: application/vnd.absperf.sskj1+json, application/vnd.absperf.ssaj1+json, application/vnd.absperf.sscj1+json, application/vnd.absperf.ssmj1+json, application/vnd.absolute-performance.syshep+json, application/x-sysshep+json, text/plain"
+export ACCEPT_XML='Accept: application/vnd.absperf.ssac1+xml'
+export ACCEPT_SSJ="Accept: application/x-sysshep+json"
 
 
 CONTENT_SSCJ='Content-Type: application/vnd.absperf.sscj1+json'
@@ -21,19 +21,26 @@ CONTENT_SSKJ='Content-Type: application/vnd.absperf.sskj1+json'
 CONTENT_SSMJ='Content-Type: application/vnd.absperf.ssmj1+json'
 
 STD_ARG=(-v --anyauth -u $SSBE_USER:$SSBE_PASS)
+
+export STD_ARG
 NONVERBOSE_ARG=(--anyauth -u $SSBE_USER:$SSBE_PASS)
 
 TIDYJSON=(ruby -rubygems -e "require 'json';puts JSON.pretty_generate(JSON.parse(STDIN.read),{:space_before => '$fg[magenta] ',:space => '$fg[cyan] ',:indent => '$fg[pr_green]  '}).gsub('\/','/')")
 
 TIDYJSONNOCOL=(ruby -rubygems -e "require 'json';puts JSON.pretty_generate(JSON.parse(STDIN.read)).gsub('\/','/')")
 
-function ndcurl { 
-  curl $STD_ARG -H "$ACCEPT_HEADER" "$@" 
+function ndcurl {
+  curl -v --anyauth -u $SSBE_USER:$SSBE_PASS -H "$ACCEPT_HEADER" "$@"
 }
-function dcurl { 
+
+function devndcurl {
+  curl $DEV_ARG -H "$ACCEPT_HEADER" "$@"
+}
+
+function dcurl {
   ndcurl "$@" | $TIDYJSON
 }
-function bwcurl { 
+function bwcurl {
   ndcurl "$@" | $TIDYJSONNOCOL
 }
 function vcurl {
@@ -61,6 +68,9 @@ function postssj {
 }
 function putssj {
   dcurl -X PUT -H $CONTENT_SSJ -d $@
+}
+function delssj {
+  dcurl -X DELETE -H $CONTENT_SSJ $@
 }
 function postsskj {
   dcurl -H $CONTENT_SSKJ -d $@
