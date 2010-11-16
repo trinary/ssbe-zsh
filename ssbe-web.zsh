@@ -79,7 +79,7 @@ function putsskj {
   dcurl -X PUT -H $CONTENT_SSKJ -d $@
 }
 function delsskj {
-  dcurl -X DELETE -H $CONTENT_SSKJ -d $@
+  dcurl -X DELETE -H $CONTENT_SSKJ $@
 }
 function postssmj {
   dcurl -H $CONTENT_SSMJ -d $@
@@ -88,7 +88,7 @@ function putssmj {
   dcurl -X PUT -H $CONTENT_SSMJ -d $@
 }
 function delssmj {
-  dcurl -X DELETE -H $CONTENT_SSMJ -d $@
+  dcurl -X DELETE -H $CONTENT_SSMJ $@
 }
 function getxml {
   curl $STD_ARG -H $ACCEPT_XML $@
