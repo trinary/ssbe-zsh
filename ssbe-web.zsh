@@ -57,6 +57,9 @@ function postsscj {
 function putsscj {
   dcurl -X PUT -H $CONTENT_SSCJ -d $@
 }
+function delsscj {
+  dcurl -X DELETE -H $CONTENT_SSCJ $@
+}
 function putssac {
   dcurl -X PUT -H $CONTENT_SSAC -d $@
 }
@@ -80,6 +83,9 @@ function putsskj {
 }
 function delsskj {
   dcurl -X DELETE -H $CONTENT_SSKJ $@
+}
+function getssmj {
+  dcurl -H $CONTENT_SSMJ $@
 }
 function postssmj {
   dcurl -H $CONTENT_SSMJ -d $@
