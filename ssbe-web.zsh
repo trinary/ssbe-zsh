@@ -52,7 +52,7 @@ function mcurl {
   dcurl -H $CONTENT_SSMJ -d $@
 }
 function postsscj {
-  dcurl  -H $CONTENT_SSCJ -d $@
+  dcurl  -X POST -H $CONTENT_SSCJ -d $@
 }
 function putsscj {
   dcurl -X PUT -H $CONTENT_SSCJ -d $@
