@@ -19,6 +19,7 @@ CONTENT_SSAC='Content-Type: application/vnd.absperf.ssac1+json'
 CONTENT_SSJ='Content-Type: application/vnd.absperf.ssj+json'
 CONTENT_SSKJ='Content-Type: application/vnd.absperf.sskj1+json'
 CONTENT_SSMJ='Content-Type: application/vnd.absperf.ssmj1+json'
+CONTENT_SSAJ='Content-Type: application/vnd.absperf.ssaj1+json'
 
 STD_ARG=(-v --anyauth -u $SSBE_USER:$SSBE_PASS)
 
@@ -51,14 +52,24 @@ function vcurl {
 function mcurl {
   dcurl -H $CONTENT_SSMJ -d $@
 }
-function postsscj {
-  dcurl  -X POST -H $CONTENT_SSCJ -d $@
+
+# SSCJ
+function getsscj {
+  dcurl -H $CONTENT_SSCJ $@
 }
 function putsscj {
   dcurl -X PUT -H $CONTENT_SSCJ -d $@
 }
+function postsscj {
+  dcurl  -X POST -H $CONTENT_SSCJ -d $@
+}
 function delsscj {
   dcurl -X DELETE -H $CONTENT_SSCJ $@
+}
+
+# SSAC
+function getssac {
+  dcurl -H $CONTENT_SSAC -d $@
 }
 function putssac {
   dcurl -X PUT -H $CONTENT_SSAC -d $@
@@ -66,44 +77,72 @@ function putssac {
 function postssac {
   dcurl -X POST -H $CONTENT_SSAC -d $@
 }
-function postssj {
-  dcurl -H $CONTENT_SSJ -d $@
+function delssac {
+  dcurl -X DELETE -H $CONTENT_SSAC $@
+}
+
+# SSJ
+function getssj {
+  curl $STD_ARG -H $ACCEPT_SSJ $@
 }
 function putssj {
   dcurl -X PUT -H $CONTENT_SSJ -d $@
 }
+function postssj {
+  dcurl -X POST -H $CONTENT_SSJ -d $@
+}
 function delssj {
   dcurl -X DELETE -H $CONTENT_SSJ $@
 }
-function postsskj {
-  dcurl -H $CONTENT_SSKJ -d $@
+
+# SSKJ
+function getsskj {
+  dcurl -H $CONTENT_SSKJ $@
 }
 function putsskj {
   dcurl -X PUT -H $CONTENT_SSKJ -d $@
 }
+function postsskj {
+  dcurl -X POST -H $CONTENT_SSKJ -d $@
+}
 function delsskj {
   dcurl -X DELETE -H $CONTENT_SSKJ $@
 }
+
+# SSMJ
 function getssmj {
   dcurl -H $CONTENT_SSMJ $@
-}
-function postssmj {
-  dcurl -H $CONTENT_SSMJ -d $@
 }
 function putssmj {
   dcurl -X PUT -H $CONTENT_SSMJ -d $@
 }
+function postssmj {
+  dcurl -X POST -H $CONTENT_SSMJ -d $@
+}
 function delssmj {
   dcurl -X DELETE -H $CONTENT_SSMJ $@
 }
+
+# SSAJ
+function getssaj {
+  dcurl -H $CONTENT_SSAJ $@
+}
+function putssaj {
+  dcurl -X PUT -H $CONTENT_SSAJ -d $@
+}
+function postssaj {
+  dcurl -X POST -H $CONTENT_SSAJ -d $@
+}
+function delssaj {
+  dcurl -X DELETE -H $CONTENT_SSAJ $@
+}
+
+# Other
 function getxml {
   curl $STD_ARG -H $ACCEPT_XML $@
 }
 function postform {
   curl -d $@
-}
-function getssj {
-  curl $STD_ARG -H $ACCEPT_SSJ $@
 }
 
 function li_report_color {
