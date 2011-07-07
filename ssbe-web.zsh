@@ -9,7 +9,7 @@ function colindex {
   echo -e "\$fg[$COLOR]]"
 }
 
-export ACCEPT_HEADER="Accept: application/vnd.absperf.sskj1+json, application/vnd.absperf.ssaj1+json, application/vnd.absperf.sscj1+json, application/vnd.absperf.ssmj1+json, application/vnd.absolute-performance.syshep+json, application/x-sysshep+json, text/plain"
+export ACCEPT_HEADER="Accept: application/vnd.absperf.sskj1+json, application/vnd.absperf.ssaj1+json, application/vnd.absperf.sscj1+json, application/vnd.absperf.ssmj1+json, application/vnd.absperf.sswj1+json, application/vnd.absolute-performance.syshep+json, application/x-sysshep+json, text/plain"
 export ACCEPT_XML='Accept: application/vnd.absperf.ssac1+xml'
 export ACCEPT_SSJ="Accept: application/x-sysshep+json"
 
@@ -20,6 +20,7 @@ CONTENT_SSJ='Content-Type: application/vnd.absperf.ssj+json'
 CONTENT_SSKJ='Content-Type: application/vnd.absperf.sskj1+json'
 CONTENT_SSMJ='Content-Type: application/vnd.absperf.ssmj1+json'
 CONTENT_SSAJ='Content-Type: application/vnd.absperf.ssaj1+json'
+CONTENT_SSWJ='Content-Type: application/vnd.absperf.sswj1+json'
 
 STD_ARG=(-v --anyauth -u $SSBE_USER:$SSBE_PASS)
 
@@ -135,6 +136,20 @@ function postssaj {
 }
 function delssaj {
   dcurl -X DELETE -H $CONTENT_SSAJ $@
+}
+
+# SSWJ
+function getsswj {
+  dcurl -H $CONTENT_SSWJ $@
+}
+function putsswj {
+  dcurl -X PUT -H $CONTENT_SSWJ -d $@
+}
+function postsswj {
+  dcurl -X POST -H $CONTENT_SSWJ -d $@
+}
+function delsswj {
+  dcurl -X DELETE -H $CONTENT_SSWJ $@
 }
 
 # Other
