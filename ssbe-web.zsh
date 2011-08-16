@@ -12,6 +12,7 @@ function colindex {
 export ACCEPT_HEADER="Accept: application/vnd.absperf.sskj1+json, application/vnd.absperf.ssaj1+json, application/vnd.absperf.sscj1+json, application/vnd.absperf.ssmj1+json, application/vnd.absperf.sswj1+json, application/vnd.absolute-performance.syshep+json, application/x-sysshep+json, text/plain"
 export ACCEPT_XML='Accept: application/vnd.absperf.ssac1+xml'
 export ACCEPT_SSJ="Accept: application/x-sysshep+json"
+export ACCEPT_WW="Accept: application/vnd.absperf.sswcj1+json"
 
 
 CONTENT_SSCJ='Content-Type: application/vnd.absperf.sscj1+json'
@@ -158,6 +159,10 @@ function getxml {
 }
 function postform {
   curl -d $@
+}
+
+function getww {
+  curl $STD_ARG -H $ACCEPT_WW $@
 }
 
 function li_report_color {
