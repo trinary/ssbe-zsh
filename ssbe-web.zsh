@@ -85,7 +85,7 @@ function delssac {
 
 # SSJ
 function getssj {
-  curl $STD_ARG -H $ACCEPT_SSJ $@
+  curl $STD_ARG -H $ACCEPT_SSJ $@ | $TIDYJSON
 }
 function putssj {
   dcurl -X PUT -H $CONTENT_SSJ -d $@
