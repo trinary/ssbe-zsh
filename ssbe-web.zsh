@@ -165,6 +165,26 @@ function getww {
   curl $STD_ARG -H $ACCEPT_WW $@
 }
 
+function ecurl {
+  dcurl $@ 2>/tmp/.ssws.err | grep -vP '("href"|ed_at"|"id")' > /tmp/.ssws.out || exit -1
+  cp -a /tmp/.ssws.out /tmp/.ssws.out.ref
+  vim --cmd 'let no_plugin_maps=1' -c 'set ft=json' -c 'au VimEnter * set nomod' /tmp/.ssws.out
+  CONTENT_TYPE=`cut -f2- -d' ' /tmp/.ssws.err | grep Content-Type | tail -1`
+  if [ `find /tmp/.ssws.out -newer /tmp/.ssws.out.ref | wc -l` -gt 0 ]; then
+    dcurl -X PUT -d@/tmp/.ssws.out -H $CONTENT_TYPE $@
+    if [ $? -ne 0 ]; then
+      mv /tmp/.ssws.out /tmp/ssws.out
+      rm -f /tmp/.ssws.out.ref /tmp/.ssws.out
+      echo "ERROR! Check /tmp/ssws.out"
+    fi
+  else
+    echo "No changes"
+  fi
+
+rm -f /tmp/.ssws.err /tmp/.ssws.out /tmp/.ssws.out.ref
+}
+
+
 function li_report_color {
 # fuck yes check this shit out
  curl $NONVERBOSE_ARG -s -H "$ACCEPT_HEADER" "$@" | ruby -rubygems -e "require 'json';require 'time';JSON.parse(STDIN.read)['items'].sort {|a,b| a['clientname'] <=> b['clientname']}.each {|i| printf(\"%18.18s %-38.38s %s%5i %s\n\", \"$fg[green]#{i['clientname']}\",\"$fg[white]#{i['hostname']}\",\"$fg[red]\",(Time.now-Time.parse(i['last_message'])).to_i/60,\" minutes ago$fg[white]\")}"
