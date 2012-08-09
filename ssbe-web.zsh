@@ -28,6 +28,8 @@ STD_ARG=(-v --anyauth -u $SSBE_USER:$SSBE_PASS)
 export STD_ARG
 NONVERBOSE_ARG=(--anyauth -u $SSBE_USER:$SSBE_PASS)
 
+PRISSY=prissy
+
 TIDYJSON=(ruby -rubygems -e "require 'json';puts JSON.pretty_generate(JSON.parse(STDIN.read),{:space_before => '$fg[magenta] ',:space => '$fg[cyan] ',:indent => '$fg[pr_green]  '}).gsub('\/','/')")
 export TIDYJSON
 
@@ -42,7 +44,7 @@ function devndcurl {
 }
 
 function dcurl {
-  ndcurl "$@" | $TIDYJSON
+  ndcurl "$@" | $PRISSY
 }
 function bwcurl {
   ndcurl "$@" | $TIDYJSONNOCOL
@@ -86,7 +88,7 @@ function delssac {
 
 # SSJ
 function getssj {
-  curl $STD_ARG -H $ACCEPT_SSJ $@ | $TIDYJSON
+  curl $STD_ARG -H $ACCEPT_SSJ $@ | $PRISSY
 }
 function putssj {
   dcurl -X PUT -H $CONTENT_SSJ -d $@
@@ -117,7 +119,7 @@ function getssmj {
   dcurl -H $CONTENT_SSMJ $@
 }
 function putssmj {
-  dcurl -X PUT -H $CONTENT_SSMJ -d $@
+  ndcurl -X PUT -H $CONTENT_SSMJ -d $@
 }
 function postssmj {
   dcurl -X POST -H $CONTENT_SSMJ -d $@
