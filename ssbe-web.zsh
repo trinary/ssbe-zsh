@@ -36,7 +36,7 @@ export TIDYJSON
 TIDYJSONNOCOL=(ruby -rubygems -e "require 'json';puts JSON.pretty_generate(JSON.parse(STDIN.read)).gsub('\/','/')")
 
 function ndcurl {
-  curl -v --anyauth -u $SSBE_USER:$SSBE_PASS -H "$ACCEPT_HEADER" "$@"
+  http --json --pretty all --auth $SSBE_USER:$SSBE_PASS "$@"
 }
 
 function devndcurl {
@@ -44,10 +44,10 @@ function devndcurl {
 }
 
 function dcurl {
-  ndcurl "$@" | $PRISSY
+  ndcurl "$@" 
 }
 function bwcurl {
-  ndcurl "$@" | $TIDYJSONNOCOL
+  ndcurl "$@"
 }
 function vcurl {
   # requires netRW to really be useful, http://www.vim.org/scripts/script.php?script_id=1075
