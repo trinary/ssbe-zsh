@@ -36,7 +36,7 @@ export TIDYJSON
 TIDYJSONNOCOL=(ruby -rubygems -e "require 'json';puts JSON.pretty_generate(JSON.parse(STDIN.read)).gsub('\/','/')")
 
 function ndcurl {
-  http --json --pretty all --auth $SSBE_USER:$SSBE_PASS "$@"
+  http --json --pretty format --auth $SSBE_USER:$SSBE_PASS "$@"
 }
 
 function devndcurl {
@@ -44,7 +44,7 @@ function devndcurl {
 }
 
 function dcurl {
-  ndcurl "$@" 
+  http --json --pretty all --auth $SSBE_USER:$SSBE_PASS "$@"
 }
 function bwcurl {
   ndcurl "$@"
